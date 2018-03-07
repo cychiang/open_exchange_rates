@@ -4,4 +4,3 @@ The [open_exchange_rates](https://openexchangerates.org) library is a dartlang w
 ## It's still under development
 
 Any suggestions are welcome.
-
