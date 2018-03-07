@@ -1,0 +1,9 @@
+name: open_exchange_rates
+description: A dartlang wrapping for openexchangerates api requests.
+version: 0.0.1
+author: Casper CY Chiang <cychiang0823@gmail.com>
+homepage: https://github.com/flutter/plugins/tree/master/packages/path_provider
+
+# SDK Version
+dependencies:
+  http: '^0.11.3+16'
