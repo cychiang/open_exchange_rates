@@ -18,6 +18,8 @@ class OpenExchangeRates extends OpenExchangeRatesBase{
   String symbols = null;
   bool show_alternative = null;
   bool prettyprint = null;
+  // Path date for historical query
+  String date = null;
   // each api has its own init function
   OpenExchangeRates.initLatest({
     this.base, this.symbols, 
@@ -39,20 +41,33 @@ class OpenExchangeRates extends OpenExchangeRatesBase{
       // prettyprint: Human-readable response for debugging (response size will be much larger)
       this.query = this.query + '&symbols=${this.prettyprint}';
     }
+    // debug message
     print(this.query);
   }
-  OpenExchangeRates.initHistorical(){}
+  OpenExchangeRates.initHistorical({
+    this.date, this.base, this.symbols, 
+    this.show_alternative, this.prettyprint}){
+    this.query = this.base_path + 'historical/${this.date}.json?app_id=${this.api_key}';
+    // debug message
+    print(this.query);
+  }
   OpenExchangeRates.initCurrencies(){}
   OpenExchangeRates.initTimeseries(){}
   OpenExchangeRates.initConvert(){}
   OpenExchangeRates.initOhlc(){}
   OpenExchangeRates.initUsage(){}
+
+  // perform http request
   get() => http.get(this.query);
 }
 
 main() async {
   // Get query instance at initial time
   OpenExchangeRates queryLatest = new OpenExchangeRates.initLatest();
+  OpenExchangeRates queryHistorical = new OpenExchangeRates.initHistorical(
+    date: '2018-01-01');
   var latestResponse = await queryLatest.get();
+  var historicalResponse = await queryHistorical.get();
   print('${latestResponse.body}');
+  print('${historicalResponse.body}');
 }
