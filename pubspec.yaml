@@ -3,7 +3,7 @@ description: A dartlang wrapping for openexchangerates api requests.
 version: 0.0.1
 author: Casper CY Chiang <cychiang0823@gmail.com>
 homepage: https://github.com/cychiang/open_exchange_rates
-
-# SDK Version
+environment:
+  sdk: ">=1.24.0 <2.0.0"
 dependencies:
   http: '^0.11.3+16'
