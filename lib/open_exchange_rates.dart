@@ -104,8 +104,10 @@ class OpenExchangeRates extends OpenExchangeRatesBase{
   }
 
   // perform http request
+  // can improve something here
   get() => http.get(this.query);
-  // update options
+  // update parameters to reuse get function
+  update(){}
 }
 
 main() async {
@@ -120,7 +122,7 @@ main() async {
   var currenciesResponse = await queryCurrencies.get();
   var usageResponse = await queryUsage.get();
   print('${latestResponse.body}');
-  print('${historicalResponse.body}');
-  print('${currenciesResponse.body}');
-  print('${usageResponse.body}');
+  // print('${historicalResponse.body}');
+  // print('${currenciesResponse.body}');
+  // print('${usageResponse.body}');
 }
