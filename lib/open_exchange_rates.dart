@@ -1,31 +1,45 @@
 import 'package:http/http.dart' as http;
 import 'dart:io' show Platform;
 
-// create class to handle requests
-class OpenExchangeRates {
-  // init variable
-  static const base_path = 'https://openexchangerates.org/api/';
-  // OpenExchangeRatesOptions opts;
-  String query = null;
+class OpenExchangeRatesBase {
+  final String base_path = 'https://openexchangerates.org/api/';
   String api_key = null;
+  // init api_key from environment variable
+  OpenExchangeRatesBase() {
+    this.api_key = Platform.environment['OER_API_KEY'];
+  }
+}
+// create class to handle requests
+class OpenExchangeRates extends OpenExchangeRatesBase{
+  // init variable
+  String query = null;
   // Query options
   String base = null;
   String symbols = null;
   bool show_alternative = null;
   bool prettyprint = null;
   // each api has its own init function
-  OpenExchangeRates.initLatest(){
-    // Parameters
-    // - app_id: string(Must)
-    // - base: string(Optional)
-    //   - Change base currency (3-letter code, default: USD)
-    // - symbols: string(Optional)
-    //   - Limit results to specific currencies (comma-separated list of 3-letter codes)
-    // - show_alternative: boolean(Optional)
-    //   - Extend returned values with alternative, black market and digital currency rates
-    // - prettyprint:	boolean(Optional)
-    //   - Human-readable response for debugging (response size will be much larger)
-    // TODO: 
+  OpenExchangeRates.initLatest({
+    this.base, this.symbols, 
+    this.show_alternative, this.prettyprint}){
+    this.query = this.base_path + 'latest.json?app_id=${this.api_key}';
+    if (this.base != null) {
+      // base: Change base currency (3-letter code, default: USD)
+      this.query = this.query + '&base=${this.base}';
+    }
+    if (this.symbols != null) {
+      // symbols: Limit results to specific currencies (comma-separated list of 3-letter codes)
+      this.query = this.query + '&symbols=${this.symbols}';
+    }
+    if (this.show_alternative != null) {
+      // show_alternative: Extend returned values with alternative, black market and digital currency rates
+      this.query = this.query + '&symbols=${this.show_alternative}';
+    }
+    if (this.prettyprint != null) {
+      // prettyprint: Human-readable response for debugging (response size will be much larger)
+      this.query = this.query + '&symbols=${this.prettyprint}';
+    }
+    print(this.query);
   }
   OpenExchangeRates.initHistorical(){}
   OpenExchangeRates.initCurrencies(){}
@@ -33,15 +47,12 @@ class OpenExchangeRates {
   OpenExchangeRates.initConvert(){}
   OpenExchangeRates.initOhlc(){}
   OpenExchangeRates.initUsage(){}
-  get() => http.get(base_path + this.query);
+  get() => http.get(this.query);
 }
 
 main() async {
-  String api_key = Platform.environment['OER_API_KEY'];
-  // How to use
   // Get query instance at initial time
   OpenExchangeRates queryLatest = new OpenExchangeRates.initLatest();
-  // Use get function to perform query and get result
   var latestResponse = await queryLatest.get();
-  print('${latestResponse}');
+  print('${latestResponse.body}');
 }
