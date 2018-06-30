@@ -13,3 +13,6 @@ doc/api/
 
 # skip init.sh
 init.sh
+
+# skip .idea/
+.idea/
