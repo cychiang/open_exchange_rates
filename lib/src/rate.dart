@@ -6,3 +6,12 @@ class Rate {
         currency = key,
         ratio = value;
 }
+
+class Currency {
+  final String currency;
+  final String name;
+  Currency(this.currency, this.name);
+  Currency.fromMap(key, value):
+        currency = key,
+        name = value;
+}
