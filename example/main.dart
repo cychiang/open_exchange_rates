@@ -1,16 +1,11 @@
-import 'dart:async';
-import '../lib/src/rate.dart';
-import '../lib/src/api.dart';
-import '../lib/src/exchanger_bloc.dart';
-import '../lib/src/params.dart';
+import 'package:open_exchange_rates/open_exchange_rates.dart';
 
 // example code
 main() async {
-  ExchangerBloc bloc = ExchangerBloc(API());
-  Stream<List<Rate>> result = bloc.results;
-
+  ExchangerBloc bloc = ExchangerBloc(Latest());
   bloc.query.add(Params(api_key: 'api_key'));
-  result.forEach((item) => item.forEach((val) =>
+  bloc.results.forEach((item) => item.forEach((val) =>
       print('${val.currency}: ${val.ratio}')
   ));
+  bloc.dispose();
 }

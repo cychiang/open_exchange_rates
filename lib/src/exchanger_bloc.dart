@@ -6,7 +6,7 @@ import 'params.dart';
 
 class ExchangerBloc {
 //  Perform latest request
-  final API api;
+  final Latest api;
   Stream<List<Rate>> _results = Stream.empty();
   Stream<String> _log = Stream.empty();
 

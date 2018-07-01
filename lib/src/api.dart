@@ -5,7 +5,7 @@ import 'package:uri/uri.dart';
 import 'rate.dart';
 import 'params.dart';
 
-class API {
+class Latest {
   final http.Client _client = http.Client();
   final UriTemplate _url = UriTemplate(
       'https://openexchangerates.org/api/latest.json'
