@@ -3,11 +3,10 @@ class Params {
   final String base;
   final String symbols;
   final bool show_alternative;
-  final bool pretty_print;
+  final bool prettyprint;
   Params({this.api_key=null,
-    this.base='USD',
-    this.symbols='JPY,TWD',
-    this.show_alternative=false,
-    this.pretty_print=false});
-
+    this.base=null,
+    this.symbols=null,
+    this.show_alternative=null,
+    this.prettyprint=null});
 }
