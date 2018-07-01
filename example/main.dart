@@ -2,7 +2,7 @@ import 'package:open_exchange_rates/open_exchange_rates.dart';
 
 // example code
 main() async {
-  String api_key = '';
+  String api_key = 'api_key';
   ExchangerBloc blocLatest = ExchangerBloc.fromLatest(Latest());
   ExchangerBloc blocCurrencies = ExchangerBloc.fromCurrencies(Currencies());
   // Latest
@@ -15,7 +15,6 @@ main() async {
   blocCurrencies.currency.forEach((item) => item.forEach((val) =>
       print('${val.currency}: ${val.name}')
   ));
-
   blocLatest.dispose();
   blocCurrencies.dispose();
 }
