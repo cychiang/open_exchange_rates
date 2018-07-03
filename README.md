@@ -9,7 +9,7 @@ Any suggestions are welcome.
 1. Registry and get an app key from [open_exchange_rates](https://openexchangerates.org)
 2. Example Code Here:
 ##
-    import 'package:open_exchange_rates/open_exchange_rates.dart';
+    import 'package:open_exchange_rates/oer.dart';
     
     // example code
     main() async {
