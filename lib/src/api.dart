@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'api_base.dart';
 import 'datatype.dart';
 import 'params.dart';
-import 'api_base.dart';
 
 class Historical extends APIBase {
   final String _url = 'https://openexchangerates.org/api/historical/';
+
   Future<List<Rate>> get(Params params) async {
     List<Rate> list = [];
     String url = _url + init_query(params);
@@ -23,6 +24,7 @@ class Historical extends APIBase {
 
 class Latest extends APIBase {
   final String _url = 'https://openexchangerates.org/api/latest.json';
+
   Future<List<Rate>> get(Params params) async {
     List<Rate> list = [];
     String url = _url + init_query(params);
@@ -39,6 +41,7 @@ class Latest extends APIBase {
 
 class Currencies extends APIBase {
   final String _url = 'https://openexchangerates.org/api/currencies.json';
+
   Future<List<Currency>> get(Params params) async {
     List<Currency> list = [];
     String url = _url + init_query(params);

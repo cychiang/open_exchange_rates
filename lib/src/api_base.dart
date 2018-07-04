@@ -1,8 +1,10 @@
 import 'package:http/http.dart' as http;
+
 import 'params.dart';
 
 class APIBase {
   final http.Client client = http.Client();
+
   String init_query(Params params) {
     String _query = '';
     if (params.date != null) {
