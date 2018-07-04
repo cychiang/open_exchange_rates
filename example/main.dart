@@ -1,4 +1,4 @@
-import 'package:open_exchange_rates/oer.dart';
+import 'package:open_exchange_rates/open_exchange_rates.dart';
 
 // example code
 main() async {
