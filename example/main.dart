@@ -1,20 +1,25 @@
-import 'package:open_exchange_rates/open_exchange_rates.dart';
+import 'package:open_exchange_rates/oer.dart';
 
 // example code
 main() async {
   String api_key = 'api_key';
-  ExchangerBloc blocLatest = ExchangerBloc.fromLatest(Latest());
-  ExchangerBloc blocCurrencies = ExchangerBloc.fromCurrencies(Currencies());
-  // Latest
-  blocLatest.query.add(Params(api_key: api_key));
-  blocLatest.results.forEach((item) => item.forEach((val) =>
-      print('${val.currency}: ${val.ratio}')
-  ));
-  // Currencies
-  blocCurrencies.query.add(Params(api_key: api_key));
-  blocCurrencies.currency.forEach((item) => item.forEach((val) =>
-      print('${val.currency}: ${val.name}')
-  ));
-  blocLatest.dispose();
-  blocCurrencies.dispose();
+  // Query Latest
+  QueryLatest latest = QueryLatest.get();
+  latest.query.add(Params(api_key: api_key));
+  latest.results.forEach(
+      (item) => item.forEach((val) => print('${val.currency}: ${val.ratio}')));
+  latest.dispose();
+  // Query Currencies
+  QueryCurrencies currencies = QueryCurrencies.get();
+  currencies.query.add(Params(api_key: api_key));
+  currencies.results.forEach(
+      (item) => item.forEach((val) => print('${val.currency}: ${val.name}')));
+  currencies.dispose();
+  // Query Historical
+  QueryHistorical historical = QueryHistorical.get();
+  historical.query.add(Params(api_key: api_key, date: '2018-07-01'));
+  historical.results.forEach(
+      (item) => item.forEach((val) => print('${val.currency}: ${val.ratio}')));
+
+  historical.dispose();
 }

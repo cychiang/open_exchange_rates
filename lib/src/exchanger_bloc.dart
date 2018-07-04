@@ -1,41 +1,63 @@
 import 'dart:async';
+
 import 'package:rxdart/rxdart.dart';
+
 import 'api.dart';
-import 'rate.dart';
-import 'params.dart';
+import 'datatype.dart';
+import 'exchanger_bloc_base.dart';
 
-class ExchangerBloc {
-  // supported API: latest, currencies
-  Latest latest;
-  Currencies currencies;
+class QueryLatest extends ExchangerBlocBase {
+  // Declare API
+  Latest latest = Latest();
+
+  // Result stream
   Stream<List<Rate>> _results = Stream.empty();
-  Stream<List<Currency>> _currencies = Stream.empty();
-  Stream<String> _log = Stream.empty();
 
-  ReplaySubject<Params> _query = ReplaySubject<Params>();
-
+  // Expose result stream
   Stream<List<Rate>> get results => _results;
-  Stream<List<Currency>> get currency => _currencies;
-  Stream<String> get log => _log;
-  Sink<Params> get query => _query;
-  // constructor
-  ExchangerBloc(){}
 
-  ExchangerBloc.fromLatest(this.latest) {
-    _results = _query.distinct().asyncMap(latest.get).asBroadcastStream();
-    _log = Observable(results)
-        .withLatestFrom(_query.stream, (_, query) => 'Latest $query')
+  QueryLatest.get() {
+    _results = queryStream.distinct().asyncMap(latest.get).asBroadcastStream();
+    logStream = Observable(results)
+        .withLatestFrom(queryStream.stream, (_, query) => 'Latest')
         .asBroadcastStream();
   }
+}
 
-  ExchangerBloc.fromCurrencies(this.currencies) {
-    _currencies = _query.distinct().asyncMap(currencies.get).asBroadcastStream();
-    _log = Observable(currency)
-        .withLatestFrom(_query.stream, (_, query) => 'Currencies $query')
+class QueryHistorical extends ExchangerBlocBase {
+  // Declare API
+  Historical historical = Historical();
+
+  // Result stream
+  Stream<List<Rate>> _results = Stream.empty();
+
+  // Expose result stream
+  Stream<List<Rate>> get results => _results;
+
+  QueryHistorical.get() {
+    _results =
+        queryStream.distinct().asyncMap(historical.get).asBroadcastStream();
+    logStream = Observable(results)
+        .withLatestFrom(queryStream.stream, (_, query) => 'Historical')
         .asBroadcastStream();
   }
+}
 
-  void dispose() {
-    _query.close();
+class QueryCurrencies extends ExchangerBlocBase {
+  // Declare API
+  Currencies currencies = Currencies();
+
+  // Result stream
+  Stream<List<Currency>> _results = Stream.empty();
+
+  // Expose result stream
+  Stream<List<Currency>> get results => _results;
+
+  QueryCurrencies.get() {
+    _results =
+        queryStream.distinct().asyncMap(currencies.get).asBroadcastStream();
+    logStream = Observable(results)
+        .withLatestFrom(queryStream.stream, (_, query) => 'Currencies')
+        .asBroadcastStream();
   }
 }
