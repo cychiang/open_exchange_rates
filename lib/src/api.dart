@@ -23,6 +23,8 @@ class Historical extends APIBase {
         .then((json) => json['rates'])
         .then((rates) =>
             rates.forEach((key, value) => list.add(Rate.fromMap(key, value))));
+    // Add null to stop stream
+    list.add(Rate.fromMap("null", 0.0));
     return list;
   }
 }
@@ -40,6 +42,7 @@ class Latest extends APIBase {
         .then((json) => json['rates'])
         .then((rates) =>
             rates.forEach((key, value) => list.add(Rate.fromMap(key, value))));
+    list.add(Rate.fromMap("null", 0.0));
     return list;
   }
 }
@@ -53,6 +56,7 @@ class Currencies extends APIBase {
     await client.get(url).then((res) => res.body).then(json.decode).then(
         (rates) => rates
             .forEach((key, value) => list.add(Currency.fromMap(key, value))));
+    list.add(Currency.fromMap("null", "null"));
     return list;
   }
 }
