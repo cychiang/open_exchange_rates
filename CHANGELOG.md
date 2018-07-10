@@ -1,3 +1,9 @@
+# 0.0.5 
+- fix uri query parameters error
+
+# 0.0.4
+- add null item to stop stream
+
 # 0.0.3
 - Cleanup unused package
 - Refactor some parts of code
