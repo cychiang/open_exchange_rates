@@ -1,7 +1,7 @@
-import 'package:open_exchange_rates/open_exchange_rates.dart' as oxr;
+import 'package:open_exchange_rates/open_exchange_rates.dart' as Oxr;
 
 void main() async {
-  oxr.Usage().Get();
+  Oxr.New oxr = Oxr.New('Hello');
 }
 
 
