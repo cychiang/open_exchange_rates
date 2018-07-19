@@ -4,6 +4,8 @@ import 'package:rxdart/rxdart.dart';
 
 import 'params.dart';
 
+// TODO: Ready to be deprecated
+
 class ExchangerBlocBase {
   // log stream
   Stream<String> logStream = Stream.empty();

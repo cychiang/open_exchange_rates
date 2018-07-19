@@ -2,7 +2,8 @@ import 'package:http/http.dart' as http;
 
 import 'params.dart';
 
-// TODO: Add check method for data type.
+// TODO: Ready to be deprecated
+
 class APIBase {
   final http.Client client = http.Client();
 
