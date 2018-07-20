@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'oxr_export.dart';
+import 'dart:convert';
 import 'oxr_base.dart';
 
 /// https://openexchangerates.org/api/latest.json
@@ -19,13 +19,35 @@ import 'oxr_base.dart';
 /// Extend returned values with alternative, black market and digital currency rates
 
 class Latest extends OxrBase {
-  Future<LatestResponse> Get(
+  final String app_id;
+  Latest(app_id) : app_id = app_id;
+
+  Future<String> Get(
       {String base,
       String symbols,
       bool prettyprint,
       bool show_alternative}) async {
-    await client.get('');
+    final _uri = latestTemplate.expand({
+      'app_id': this.app_id,
+      'base': base,
+      'symbols': symbols,
+      'prettyprint': prettyprint,
+      'show_alternative': show_alternative,
+    });
+    print(_uri);
+    String result;
+    await client
+        .get(_uri)
+        .then((res) => res.body)
+        .then(json.decode)
+        .then((json) => result = json.toString());
+    return result;
 
-    return null;
+//    .get(url)
+//        .then((res) => res.body)
+//        .then(json.decode)
+//        .then((json) => json['rates'])
+//        .then((rates) =>
+//    rates.forEach((key, value) => list.add(Rate.fromMap(key, value))));
   }
 }

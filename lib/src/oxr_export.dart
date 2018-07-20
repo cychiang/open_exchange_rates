@@ -1,5 +1,6 @@
 import 'oxr_latest.dart';
-
+import 'oxr_currencies.dart';
+import 'oxr_historical.dart';
 // Define base units
 
 class Currency {
@@ -30,7 +31,13 @@ class LatestResponse {
 }
 
 class New {
-  final String app_id;
   Latest latest;
-  New(app_id) : app_id = app_id;
+  Currencies currencies;
+  Historical historical;
+  New(String app_id) {
+    latest = new Latest(app_id);
+    historical = new Historical(app_id);
+    currencies = new Currencies();
+  }
 }
+
