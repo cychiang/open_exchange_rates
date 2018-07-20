@@ -6,10 +6,7 @@ import 'api_base.dart';
 import 'datatype.dart';
 import 'params.dart';
 
-// TODO: /time-series.json
-// TODO: /convert
-// TODO: /ohlc.json
-// TODO: /usage.json
+// TODO: Ready to be deprecated
 
 class Historical extends APIBase {
   final String _url = 'https://openexchangerates.org/api/historical/';

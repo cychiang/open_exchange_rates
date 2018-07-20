@@ -6,6 +6,8 @@ import 'api.dart';
 import 'datatype.dart';
 import 'exchanger_bloc_base.dart';
 
+// TODO: Ready to be deprecated
+
 class QueryLatest extends ExchangerBlocBase {
   // Declare API
   Latest latest = Latest();

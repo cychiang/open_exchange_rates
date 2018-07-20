@@ -1,3 +1,6 @@
+
+// TODO: Ready to be deprecated
+
 class Rate {
   final String currency;
   final num ratio;
