@@ -14,7 +14,7 @@ class Ohlc extends OxrBase {
   final String app_id;
   Ohlc(app_id) : app_id = app_id;
 
-  Future<String> Get({
+  Future<Map> Get({
     String start_time,
     String period,
     String symbols,
@@ -29,14 +29,9 @@ class Ohlc extends OxrBase {
       'app_id': this.app_id,
       'prettyprint': prettyprint,
     });
-    print(_uri);
-    String result;
-    await client
+    return await client
         .get(_uri)
-        .then((res) => res.body)
-        .then(json.decode)
-        .then((json) => result = json.toString());
-    return result;
+        .then((res) => json.decode(res.body));
   }
 }
 

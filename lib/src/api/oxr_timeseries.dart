@@ -8,7 +8,7 @@ class TimeSeries extends OxrBase {
   final String app_id;
   TimeSeries(app_id) : app_id = app_id;
 
-  Future<String> Get({
+  Future<Map> Get({
     String start,
     String end,
     String symbols,
@@ -25,14 +25,9 @@ class TimeSeries extends OxrBase {
       'show_alternative': show_alternative,
       'prettyprint': prettyprint,
     });
-    print(_uri);
-    String result;
-    await client
+    return await client
         .get(_uri)
-        .then((res) => res.body)
-        .then(json.decode)
-        .then((json) => result = json.toString());
-    return result;
+        .then((res) => json.decode(res.body));
   }
 }
 
