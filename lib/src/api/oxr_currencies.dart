@@ -10,8 +10,6 @@ class Currencies extends OxrBase {
       'show_alternative': show_alternative,
       'show_inactive': show_inactive,
     });
-    return await client
-        .get(_uri)
-        .then((res) => json.decode(res.body));
+    return await client.get(_uri).then((res) => json.decode(res.body));
   }
 }

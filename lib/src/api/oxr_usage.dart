@@ -14,8 +14,6 @@ class Usage extends OxrBase {
       'app_id': this.app_id,
       'prettyprint': prettyprint,
     });
-    return await client
-        .get(_uri)
-        .then((res) => json.decode(res.body));
+    return await client.get(_uri).then((res) => json.decode(res.body));
   }
 }
