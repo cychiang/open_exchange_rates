@@ -22,7 +22,7 @@ class Latest extends OxrBase {
   final String app_id;
   Latest(app_id) : app_id = app_id;
 
-  Future<String> Get(
+  Future<Map> Get(
       {String base,
       String symbols,
       bool prettyprint,
@@ -34,20 +34,8 @@ class Latest extends OxrBase {
       'prettyprint': prettyprint,
       'show_alternative': show_alternative,
     });
-    print(_uri);
-    String result;
-    await client
+    return await client
         .get(_uri)
-        .then((res) => res.body)
-        .then(json.decode)
-        .then((json) => result = json.toString());
-    return result;
-
-//    .get(url)
-//        .then((res) => res.body)
-//        .then(json.decode)
-//        .then((json) => json['rates'])
-//        .then((rates) =>
-//    rates.forEach((key, value) => list.add(Rate.fromMap(key, value))));
+        .then((res) => json.decode(res.body));
   }
 }
