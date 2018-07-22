@@ -34,6 +34,6 @@ class Latest extends OxrBase {
       'prettyprint': prettyprint,
       'show_alternative': show_alternative,
     });
-    return await client.get(_uri).then((res) => json.decode(res.body));
+    return await client.get(_uri).then((res) => json.decode(res.body)).whenComplete(() => client.close());
   }
 }

@@ -12,7 +12,7 @@ pubspec.lock
 doc/api/
 
 # skip init.sh
-init.sh
+start.sh
 
 # skip .idea/
 .idea/

@@ -16,5 +16,5 @@ class OxrBase {
   var ohlcTemplate = new UriTemplate(
       "https://openexchangerates.org/api/ohlc.json{?app_id,start_time,period,symbols,base,prettyprint}");
   var usageTemplate = new UriTemplate(
-      "https://openexchangerates.org/api/usage.json?{app_id,prettyprint}");
+      "https://openexchangerates.org/api/usage.json{?app_id,prettyprint}");
 }

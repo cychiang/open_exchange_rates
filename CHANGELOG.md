@@ -1,3 +1,9 @@
+# 0.1.0
+- Refactor code structure
+- All api will return json object(Map) instead of class
+- All api provided from [openchangerates](https://openexchangerates.org/) are implemented. 
+- Update example code
+
 # 0.0.5 
 - fix uri query parameters error
 
