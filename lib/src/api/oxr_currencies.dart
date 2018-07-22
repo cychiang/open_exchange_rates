@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
 import 'oxr_base.dart';
+import 'package:http/http.dart' as http;
 
 class Currencies extends OxrBase {
   Future<Map> Get(
       {bool prettyprint, bool show_alternative, bool show_inactive}) async {
+    final http.Client client = http.Client();
     final _uri = currenciesTemplate.expand({
       'prettyprint': prettyprint,
       'show_alternative': show_alternative,

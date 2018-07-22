@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'oxr_base.dart';
+import 'package:http/http.dart' as http;
 // https://openexchangerates.org/api/convert/:value/:from/:to
 
 class Convert extends OxrBase {
@@ -13,6 +14,7 @@ class Convert extends OxrBase {
     String to,
     bool prettyprint,
   }) async {
+    final http.Client client = http.Client();
     final _uri = convertTemplate.expand({
       'value': value,
       'from': from,

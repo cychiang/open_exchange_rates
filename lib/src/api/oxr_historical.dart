@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'oxr_base.dart';
+import 'package:http/http.dart' as http;
 
 // https://openexchangerates.org/api/historical/2001-02-16.json?app_id=YOUR_APP_ID
 
@@ -14,6 +15,7 @@ class Historical extends OxrBase {
       String symbols,
       bool show_alternative,
       bool prettyprint}) async {
+    final http.Client client = http.Client();
     final _uri = historicalTemplate.expand({
       'date': date,
       'app_id': this.app_id,

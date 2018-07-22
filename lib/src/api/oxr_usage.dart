@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'oxr_base.dart';
+import 'package:http/http.dart' as http;
 // https://openexchangerates.org/api/usage.json
 
 class Usage extends OxrBase {
@@ -10,6 +11,7 @@ class Usage extends OxrBase {
   Future<Map> Get({
     bool prettyprint,
   }) async {
+    final http.Client client = http.Client();
     final _uri = usageTemplate.expand({
       'app_id': this.app_id,
       'prettyprint': prettyprint,

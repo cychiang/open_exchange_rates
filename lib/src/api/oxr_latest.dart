@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'oxr_base.dart';
+import 'package:http/http.dart' as http;
 
 /// https://openexchangerates.org/api/latest.json
 /// app_id:	string Required
@@ -27,6 +28,7 @@ class Latest extends OxrBase {
       String symbols,
       bool prettyprint,
       bool show_alternative}) async {
+    final http.Client client = http.Client();
     final _uri = latestTemplate.expand({
       'app_id': this.app_id,
       'base': base,

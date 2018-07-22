@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'oxr_base.dart';
+import 'package:http/http.dart' as http;
 
 /// https://openexchangerates.org/api/ohlc.json
 /// Get historical Open, High Low, Close (OHLC) and Average exchange rates for a given time period, ranging from 1 month to 1 minute, where available. Please read all the details before starting integration.
@@ -21,6 +22,7 @@ class Ohlc extends OxrBase {
     String base,
     bool prettyprint,
   }) async {
+    final http.Client client = http.Client();
     final _uri = ohlcTemplate.expand({
       'start_time': start_time,
       'period': period,
