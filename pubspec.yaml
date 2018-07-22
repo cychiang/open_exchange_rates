@@ -1,7 +1,7 @@
 name: open_exchange_rates
 description: A dartlang wrapping for openexchangerates api requests.
 version: 0.1.0
-author: Casper CY Chiang <cychiang0823@gmail.com>
+author: Chuan-Yen Chiang <cychiang0823@gmail.com>
 homepage: https://github.com/cychiang/open_exchange_rates
 environment:
   sdk: '>=2.0.0-dev.55.0 <2.0.0'
