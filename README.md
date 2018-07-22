@@ -7,50 +7,21 @@ Any suggestions are welcome.
 
 ## How to use?
 1. Registry and get an app key from [open_exchange_rates](https://openexchangerates.org)
-2. Example Code Here:
-
+2. Example Code Here: 
 ```dart
-import 'package:open_exchange_rates/open_exchange_rates.dart';
+import 'package:open_exchange_rates/open_exchange_rates.dart' as Oxr;
 
-// example code
-
-void runLatest(String api_key) async {
-  QueryLatest latest = QueryLatest.get();
-  latest.query.add(Params(api_key: api_key));
-  // Query Latest
-  await for (List<Rate> _rates in latest.results) {
-    for (Rate rate in _rates) {
-      print('${rate.currency}: ${rate.ratio}');
-    }
-  }
+void main(List<String> args) async {
+  Oxr.New oxr = new Oxr.New(args[0]);
+  var response_latest = await oxr.latest.Get();
+  var response_currencies = await oxr.currencies.Get();
+  var response_historical = await oxr.historical.Get(date: '2018-07-01');
+  print(response_latest);
+  print(response_currencies);
+  print(response_historical);
 }
-
-void runHistorical(String api_key) async {
-  QueryHistorical historical = QueryHistorical.get();
-  historical.query.add(Params(api_key: api_key, date: '2018-07-01'));
-  // Query Historical
-  await for (List<Rate> _rates in historical.results) {
-    for (Rate rate in _rates) {
-      print('${rate.currency}: ${rate.ratio}');
-    }
-  }
-}
-
-void runCurrencies(String api_key) async {
-  QueryCurrencies currencies = QueryCurrencies.get();
-  currencies.query.add(Params(api_key: api_key));
-  // Query Currencies
-  await for (List<Currency> _currencies in currencies.results) {
-    for (Currency _currency in _currencies) {
-      print('${_currency.currency}: ${_currency.name}');
-    }
-  }
-}
-
-main() async {
-  String api_key = 'api_key';
-  runLatest(api_key);
-  runHistorical(api_key);
-  runCurrencies(api_key);
-}
+```
+## Run example
+```dart
+dart example/main.dart ${api_key}
 ```

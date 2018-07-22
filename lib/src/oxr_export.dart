@@ -24,4 +24,3 @@ class New {
     currencies = new Currencies();
   }
 }
-

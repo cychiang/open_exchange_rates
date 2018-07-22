@@ -25,9 +25,7 @@ class TimeSeries extends OxrBase {
       'show_alternative': show_alternative,
       'prettyprint': prettyprint,
     });
-    return await client
-        .get(_uri)
-        .then((res) => json.decode(res.body));
+    return await client.get(_uri).then((res) => json.decode(res.body)).whenComplete(() => client.close());
   }
 }
 
