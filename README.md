@@ -1,6 +1,8 @@
 # open_exchange_rates
 The [open_exchange_rates](https://openexchangerates.org) library is a dartlang wrapping and make it easy to use.
 
+[![pub package](https://img.shields.io/pub/v/open_exchange_rates.svg)](https://pub.dartlang.org/packages/open_exchange_rates)
+
 ## It's still under development
 
 Any suggestions are welcome.
