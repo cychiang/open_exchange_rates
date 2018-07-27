@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'oxr_base.dart';
 import 'package:http/http.dart' as http;
 
-// https://openexchangerates.org/api/historical/2001-02-16.json?app_id=YOUR_APP_ID
-
 class Historical extends OxrBase {
   final String app_id;
   Historical(app_id) : app_id = app_id;
@@ -24,9 +22,11 @@ class Historical extends OxrBase {
       'show_alternative': show_alternative,
       'prettyprint': prettyprint,
     });
+    // TODO: handle Error
     return await client
         .get(_uri)
         .then((res) => json.decode(res.body))
+        .catchError((e) => print(e))
         .whenComplete(() => client.close());
   }
 }

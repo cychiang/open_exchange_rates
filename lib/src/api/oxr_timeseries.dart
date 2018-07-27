@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'oxr_base.dart';
 import 'package:http/http.dart' as http;
 
-// https://openexchangerates.org/api/time-series.json
-
 class TimeSeries extends OxrBase {
   final String app_id;
   TimeSeries(app_id) : app_id = app_id;
@@ -27,11 +25,11 @@ class TimeSeries extends OxrBase {
       'show_alternative': show_alternative,
       'prettyprint': prettyprint,
     });
+    // TODO: handle Error
     return await client
         .get(_uri)
         .then((res) => json.decode(res.body))
+        .catchError((e) => print(e))
         .whenComplete(() => client.close());
   }
 }
-
-// {?app_id,start,end,symbols,base,show_alternative,prettyprint}

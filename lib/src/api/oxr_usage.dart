@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'oxr_base.dart';
 import 'package:http/http.dart' as http;
-// https://openexchangerates.org/api/usage.json
 
 class Usage extends OxrBase {
   final String app_id;
@@ -16,9 +15,11 @@ class Usage extends OxrBase {
       'app_id': this.app_id,
       'prettyprint': prettyprint,
     });
+    // TODO: handle Error
     return await client
         .get(_uri)
         .then((res) => json.decode(res.body))
+        .catchError((e) => print(e))
         .whenComplete(() => client.close());
   }
 }

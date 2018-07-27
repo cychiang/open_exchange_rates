@@ -3,22 +3,6 @@ import 'dart:convert';
 import 'oxr_base.dart';
 import 'package:http/http.dart' as http;
 
-/// https://openexchangerates.org/api/latest.json
-/// app_id:	string Required
-/// Your unique App ID
-///
-/// base:	string Optional
-/// Change base currency (3-letter code, default: USD)
-///
-/// symbols:	string Optional
-/// Limit results to specific currencies (comma-separated list of 3-letter codes)
-///
-/// prettyprint:	boolean Optional
-/// Set to false to reduce response size (removes whitespace)
-///
-/// show_alternative:	boolean Optional
-/// Extend returned values with alternative, black market and digital currency rates
-
 class Latest extends OxrBase {
   final String app_id;
   Latest(app_id) : app_id = app_id;
@@ -36,9 +20,11 @@ class Latest extends OxrBase {
       'prettyprint': prettyprint,
       'show_alternative': show_alternative,
     });
+    // TODO: handle Error
     return await client
         .get(_uri)
         .then((res) => json.decode(res.body))
+        .catchError((e) => print(e))
         .whenComplete(() => client.close());
   }
 }

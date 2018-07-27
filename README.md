@@ -3,10 +3,6 @@ The [open_exchange_rates](https://openexchangerates.org) library is a dartlang w
 
 [![pub package](https://img.shields.io/pub/v/open_exchange_rates.svg)](https://pub.dartlang.org/packages/open_exchange_rates)
 
-## It's still under development
-
-Any suggestions are welcome.
-
 ## How to use?
 1. Registry and get an app key from [open_exchange_rates](https://openexchangerates.org)
 2. Example Code Here: 
