@@ -1,3 +1,7 @@
+# 1.0.0
+- Add error handling
+- First release
+
 # 0.1.0
 - Refactor code structure
 - All api will return json object(Map) instead of class
