@@ -6,6 +6,25 @@ part of 'oxr_models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+QueryParams _$QueryParamsFromJson(Map<String, dynamic> json) {
+  return QueryParams(
+    base: json['base'] as String,
+    symbols: json['symbols'] as String,
+    prettyPrint: json['prettyprint'] as bool,
+    showAlternative: json['show_alternative'] as bool,
+    showInactive: json['show_inactive'] as bool,
+  );
+}
+
+Map<String, dynamic> _$QueryParamsToJson(QueryParams instance) =>
+    <String, dynamic>{
+      'base': instance.base,
+      'symbols': instance.symbols,
+      'prettyprint': instance.prettyPrint,
+      'show_alternative': instance.showAlternative,
+      'show_inactive': instance.showInactive,
+    };
+
 Rates _$RatesFromJson(Map<String, dynamic> json) {
   return Rates(
     disclaimer: json['disclaimer'] as String,
@@ -24,21 +43,4 @@ Map<String, dynamic> _$RatesToJson(Rates instance) => <String, dynamic>{
       'timestamp': instance.timestamp,
       'base': instance.base,
       'rates': instance.rates,
-    };
-
-QueryParams _$QueryParamsFromJson(Map<String, dynamic> json) {
-  return QueryParams(
-    base: json['base'] as String,
-    symbols: json['symbols'] as String,
-    prettyPrint: json['prettyprint'] as bool,
-    showAlternative: json['show_alternative'] as bool,
-  );
-}
-
-Map<String, dynamic> _$QueryParamsToJson(QueryParams instance) =>
-    <String, dynamic>{
-      'base': instance.base,
-      'symbols': instance.symbols,
-      'prettyprint': instance.prettyPrint,
-      'show_alternative': instance.showAlternative,
     };

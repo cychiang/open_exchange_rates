@@ -32,12 +32,22 @@ void main() {
             'rates': {'AED': 3.672914, 'AFN': 48.337601, 'ALL': 111.863334}
           });
       }
+      if (request.uri.path == '/api/currencies.json') {
+        return MockResponse()
+          ..httpCode = HttpStatus.ok
+          ..body = jsonEncode({
+            'AED': 'United Arab Emirates Dirham',
+            'AFN': 'Afghan Afghani',
+            'ALL': 'Albanian Lek'
+          });
+      }
     };
     setUp(() async {
       server = new MockWebServer();
       server.dispatcher = dispatcher;
       await server.start();
-      oxr = Oxr('api_key', endpoint: '${server.url.substring(0, server.url.length - 1)}');
+      oxr = Oxr('api_key',
+          endpoint: '${server.url.substring(0, server.url.length - 1)}');
     });
     tearDown(() async {
       server.shutdown();
@@ -61,6 +71,12 @@ void main() {
       expect(historical.rates['AED'], 3.672914);
       expect(historical.rates['AFN'], 48.337601);
       expect(historical.rates['ALL'], 111.863334);
+    });
+    test('Get currencies', () async {
+      var currencies = await oxr.getCurrencies();
+      expect(currencies['AED'], 'United Arab Emirates Dirham');
+      expect(currencies['AFN'], 'Afghan Afghani');
+      expect(currencies['ALL'], 'Albanian Lek');
     });
   });
 }

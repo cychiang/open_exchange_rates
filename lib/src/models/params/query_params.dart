@@ -10,9 +10,15 @@ class QueryParams {
   bool prettyPrint;
   @JsonKey(name: 'show_alternative')
   bool showAlternative;
+  @JsonKey(name: 'show_inactive')
+  bool showInactive;
 
   QueryParams(
-      {this.base, this.symbols, this.prettyPrint, this.showAlternative});
+      {this.base,
+      this.symbols,
+      this.prettyPrint,
+      this.showAlternative,
+      this.showInactive});
 
   factory QueryParams.fromJson(Map<String, dynamic> json) =>
       _$QueryParamsFromJson(json);
