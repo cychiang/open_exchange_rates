@@ -8,9 +8,10 @@ import 'package:uri/uri.dart';
 import '../oxr.dart';
 
 class Oxr {
-  static const defaultApiEndpoint = 'https://openexchangerates.org/api';
-  String apiKey;
+  static const defaultApiEndpoint = 'https://openexchangerates.org';
   final dateFormatter = DateFormat('yyyy-MM-dd');
+  String apiKey;
+  String endpoint;
   Map<String, String> headers;
   QueryParams getParams(
           {String base,
@@ -23,7 +24,8 @@ class Oxr {
           prettyPrint: prettyPrint,
           showAlternative: showAlternative);
 
-  Oxr({this.apiKey}) {
+  Oxr(String apiKey, {String endpoint})
+      : endpoint = endpoint ?? defaultApiEndpoint {
     headers = {
       'Authorization': 'Token ${apiKey}',
       'User-Agent': 'oxr-sdk-dart/${version}',
@@ -36,8 +38,8 @@ class Oxr {
       bool prettyPrint,
       bool showAlternative}) async {
     Rates latest;
-    var uri = UriTemplate(defaultApiEndpoint +
-            '/latest.json{?base,symbols,prettyprint,show_alternative}')
+    var uri = UriTemplate(endpoint +
+            '/api/latest.json{?base,symbols,prettyprint,show_alternative}')
         .expand(getParams(
                 base: base,
                 symbols: symbols,
@@ -57,8 +59,8 @@ class Oxr {
       bool prettyPrint,
       bool showAlternative}) async {
     Rates historical;
-    var uri = UriTemplate(defaultApiEndpoint +
-            '/historical/${dateFormatter.format(date)}' +
+    var uri = UriTemplate(endpoint +
+            '/api/historical/${dateFormatter.format(date)}' +
             '.json{?base,symbols,prettyprint,show_alternative}')
         .expand(getParams(
                 base: base,
@@ -74,7 +76,6 @@ class Oxr {
   }
 
   Future<http.Response> _get(String url) async {
-    print('url: ${url}');
     http.Response response = await http.get(url, headers: headers);
     return response;
   }
