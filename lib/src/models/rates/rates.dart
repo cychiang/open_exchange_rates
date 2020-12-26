@@ -1,7 +1,7 @@
 part of '../oxr_models.dart';
 
 @JsonSerializable()
-class Latest {
+class Rates {
   @JsonKey(name: 'disclaimer')
   String disclaimer;
   @JsonKey(name: 'license')
@@ -13,10 +13,9 @@ class Latest {
   @JsonKey(name: 'rates')
   Map<String, double> rates;
 
+  Rates({this.disclaimer, this.license, this.timestamp, this.base, this.rates});
 
-  Latest({this.disclaimer, this.license, this.timestamp, this.base, this.rates});
+  factory Rates.fromJson(Map<String, dynamic> json) => _$RatesFromJson(json);
 
-  factory Latest.fromJson(Map<String, dynamic> json) => _$LatestFromJson(json);
-
-  Map<String, dynamic> toJson() => _$LatestToJson(this);
+  Map<String, dynamic> toJson() => _$RatesToJson(this);
 }

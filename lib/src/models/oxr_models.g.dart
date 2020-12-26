@@ -6,8 +6,8 @@ part of 'oxr_models.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Latest _$LatestFromJson(Map<String, dynamic> json) {
-  return Latest(
+Rates _$RatesFromJson(Map<String, dynamic> json) {
+  return Rates(
     disclaimer: json['disclaimer'] as String,
     license: json['license'] as String,
     timestamp: json['timestamp'] as int,
@@ -18,7 +18,7 @@ Latest _$LatestFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$LatestToJson(Latest instance) => <String, dynamic>{
+Map<String, dynamic> _$RatesToJson(Rates instance) => <String, dynamic>{
       'disclaimer': instance.disclaimer,
       'license': instance.license,
       'timestamp': instance.timestamp,

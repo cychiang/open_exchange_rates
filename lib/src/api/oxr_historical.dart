@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
-import 'oxr_base.dart';
+
 import 'package:http/http.dart' as http;
+
+import 'oxr_base.dart';
 
 class Historical extends OxrBase {
   final String app_id;

@@ -1,9 +1,9 @@
-import 'package:open_exchange_rates/src/api/oxr_latest.dart';
+import 'package:open_exchange_rates/src/api/oxr_convert.dart';
 import 'package:open_exchange_rates/src/api/oxr_currencies.dart';
 import 'package:open_exchange_rates/src/api/oxr_historical.dart';
-import 'package:open_exchange_rates/src/api/oxr_timeseries.dart';
-import 'package:open_exchange_rates/src/api/oxr_convert.dart';
+import 'package:open_exchange_rates/src/api/oxr_latest.dart';
 import 'package:open_exchange_rates/src/api/oxr_ohlc.dart';
+import 'package:open_exchange_rates/src/api/oxr_timeseries.dart';
 import 'package:open_exchange_rates/src/api/oxr_usage.dart';
 
 class New {
