@@ -3,9 +3,7 @@ import 'dart:io';
 import 'package:open_exchange_rates/open_exchange_rates.dart';
 
 void main(List<String> args) async {
-  var envVars = Platform.environment;
-  var oxrApiKey = envVars['OXR_API_KEY'];
-  var oxr = Oxr(apiKey: oxrApiKey);
+  var oxr = Oxr(Platform.environment['OXR_API_KEY']);
 
   var latest = await oxr.getLatest();
   if (latest != null) {
