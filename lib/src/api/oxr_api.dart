@@ -37,14 +37,14 @@ class Oxr {
       bool showAlternative}) async {
     Rates latest;
     var uri = UriTemplate(defaultApiEndpoint +
-            '/latest.json{?base,symbols,prettyprint,show_alternative}')
-        .expand(getParams(
-                base: base,
-                symbols: symbols,
-                prettyPrint: prettyPrint,
-                showAlternative: showAlternative)
-            .toJson());
-    var response = await _get(uri);
+        '/latest.json{?base,symbols,prettyprint,show_alternative}');
+    var response = await _get(
+        uri,
+        getParams(
+            base: base,
+            symbols: symbols,
+            prettyPrint: prettyPrint,
+            showAlternative: showAlternative));
     if (response.statusCode == HttpStatus.ok) {
       latest = Rates.fromJson(jsonDecode(response.body));
     }
@@ -58,23 +58,24 @@ class Oxr {
       bool showAlternative}) async {
     Rates historical;
     var uri = UriTemplate(defaultApiEndpoint +
-            '/historical/${dateFormatter.format(date)}' +
-            '.json{?base,symbols,prettyprint,show_alternative}')
-        .expand(getParams(
-                base: base,
-                symbols: symbols,
-                prettyPrint: prettyPrint,
-                showAlternative: showAlternative)
-            .toJson());
-    var response = await _get(uri);
+        '/historical/${dateFormatter.format(date)}' +
+        '.json{?base,symbols,prettyprint,show_alternative}');
+    var response = await _get(
+        uri,
+        getParams(
+            base: base,
+            symbols: symbols,
+            prettyPrint: prettyPrint,
+            showAlternative: showAlternative));
     if (response.statusCode == HttpStatus.ok) {
       historical = Rates.fromJson(jsonDecode(response.body));
     }
     return historical;
   }
 
-  Future<http.Response> _get(String url) async {
-    print('url: ${url}');
+  Future<http.Response> _get(
+      UriTemplate uriTemplate, QueryParams queryParams) async {
+    var url = uriTemplate.expand(queryParams.toJson());
     http.Response response = await http.get(url, headers: headers);
     return response;
   }
