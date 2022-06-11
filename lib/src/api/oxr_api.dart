@@ -15,7 +15,7 @@ class Oxr {
   String endpoint;
   Map<String, String> headers = {};
 
-  QueryParams getParams({String? base, String? symbols, bool prettyPrint = false, bool showAlternative = false}) =>
+  QueryParams getParams({String? base, String? symbols, bool prettyPrint = true, bool showAlternative = false}) =>
       QueryParams(base: base, symbols: symbols, prettyPrint: prettyPrint, showAlternative: showAlternative);
 
   Oxr(this.apiKey, {this.endpoint = defaultApiEndpoint}) {
@@ -25,7 +25,7 @@ class Oxr {
       'Content-Type': 'application/json',
     };
   }
-  Future<Rates?> getLatest({String? base, String? symbols, bool prettyPrint = false, bool showAlternative = false}) async {
+  Future<Rates?> getLatest({String? base, String? symbols, bool prettyPrint = true, bool showAlternative = false}) async {
     Rates? latest;
     var uri = UriTemplate('$endpoint/api/latest.json{?base,symbols,prettyprint,show_alternative}')
         .expand(getParams(base: base, symbols: symbols, prettyPrint: prettyPrint, showAlternative: showAlternative).toJson());
@@ -36,7 +36,7 @@ class Oxr {
     return latest;
   }
 
-  Future<Rates?> getHistorical(DateTime date, {String? base, String? symbols, bool prettyPrint = false, bool showAlternative = false}) async {
+  Future<Rates?> getHistorical(DateTime date, {String? base, String? symbols, bool prettyPrint = true, bool showAlternative = false}) async {
     Rates? historical;
     var uri = UriTemplate('$endpoint/api/historical/${dateFormatter.format(date)}.json{?base,symbols,prettyprint,show_alternative}')
         .expand(getParams(base: base, symbols: symbols, prettyPrint: prettyPrint, showAlternative: showAlternative).toJson());
