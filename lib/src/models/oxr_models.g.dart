@@ -12,8 +12,8 @@ Rates _$RatesFromJson(Map<String, dynamic> json) {
     license: json['license'] as String,
     timestamp: json['timestamp'] as int,
     base: json['base'] as String,
-    rates: (json['rates'] as Map<String, dynamic>)?.map(
-      (k, e) => MapEntry(k, (e as num)?.toDouble()),
+    rates: (json['rates'] as Map<String, dynamic>).map(
+      (k, e) => MapEntry(k, (e as num).toDouble()),
     ),
   );
 }
@@ -35,8 +35,7 @@ QueryParams _$QueryParamsFromJson(Map<String, dynamic> json) {
   );
 }
 
-Map<String, dynamic> _$QueryParamsToJson(QueryParams instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$QueryParamsToJson(QueryParams instance) => <String, dynamic>{
       'base': instance.base,
       'symbols': instance.symbols,
       'prettyprint': instance.prettyPrint,

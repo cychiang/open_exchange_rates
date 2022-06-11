@@ -1,15 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:open_exchange_rates/open_exchange_rates.dart';
 import 'package:mock_web_server/mock_web_server.dart';
+import 'package:open_exchange_rates/open_exchange_rates.dart';
 import 'package:test/test.dart';
 
 void main() {
   group('Test get user profile and followers', () {
-    Oxr oxr;
-    MockWebServer server;
-    var dispatcher = (HttpRequest request) async {
+    late Oxr oxr;
+    late MockWebServer server;
+
+    dispatcher(HttpRequest request) async {
       if (request.uri.path == '/api/latest.json') {
         return MockResponse()
           ..httpCode = HttpStatus.ok
@@ -32,19 +33,27 @@ void main() {
             'rates': {'AED': 3.672914, 'AFN': 48.337601, 'ALL': 111.863334}
           });
       }
-    };
+
+      return MockResponse()..httpCode = HttpStatus.notFound;
+    }
+
     setUp(() async {
-      server = new MockWebServer();
+      server = MockWebServer();
       server.dispatcher = dispatcher;
       await server.start();
-      oxr = Oxr('api_key', endpoint: '${server.url.substring(0, server.url.length - 1)}');
+      oxr = Oxr('api_key', endpoint: server.url.substring(0, server.url.length - 1));
     });
+
     tearDown(() async {
       server.shutdown();
     });
+
     test('Get latest rates', () async {
       var latest = await oxr.getLatest();
-      expect(latest.disclaimer, 'https://openexchangerates.org/terms/');
+
+      expect(latest, (v) => v != null);
+
+      expect(latest!.disclaimer, 'https://openexchangerates.org/terms/');
       expect(latest.license, 'https://openexchangerates.org/license/');
       expect(latest.timestamp, 1449877801);
       expect(latest.base, 'USD');
@@ -54,7 +63,10 @@ void main() {
     });
     test('Get historical rates', () async {
       var historical = await oxr.getHistorical(DateTime(2012, 7, 10));
-      expect(historical.disclaimer, 'https://openexchangerates.org/terms/');
+
+      expect(historical, (v) => v != null);
+
+      expect(historical!.disclaimer, 'https://openexchangerates.org/terms/');
       expect(historical.license, 'https://openexchangerates.org/license/');
       expect(historical.timestamp, 1449877801);
       expect(historical.base, 'USD');
