@@ -10,42 +10,25 @@ import '../oxr.dart';
 class Oxr {
   static const defaultApiEndpoint = 'https://openexchangerates.org';
   final dateFormatter = DateFormat('yyyy-MM-dd');
+
   String apiKey;
   String endpoint;
-  Map<String, String> headers;
-  QueryParams getParams(
-          {String base,
-          String symbols,
-          bool prettyPrint,
-          bool showAlternative}) =>
-      QueryParams(
-          base: base,
-          symbols: symbols,
-          prettyPrint: prettyPrint,
-          showAlternative: showAlternative);
+  Map<String, String> headers = {};
 
-  Oxr(String apiKey, {String endpoint})
-      : endpoint = endpoint ?? defaultApiEndpoint {
+  QueryParams getParams({String? base, String? symbols, bool prettyPrint = true, bool showAlternative = false}) =>
+      QueryParams(base: base, symbols: symbols, prettyPrint: prettyPrint, showAlternative: showAlternative);
+
+  Oxr(this.apiKey, {this.endpoint = defaultApiEndpoint}) {
     headers = {
-      'Authorization': 'Token ${apiKey}',
-      'User-Agent': 'oxr-sdk-dart/${version}',
+      'Authorization': 'Token $apiKey',
+      'User-Agent': 'oxr-sdk-dart/$version',
       'Content-Type': 'application/json',
     };
   }
-  Future<Rates> getLatest(
-      {String base,
-      String symbols,
-      bool prettyPrint,
-      bool showAlternative}) async {
-    Rates latest;
-    var uri = UriTemplate(endpoint +
-            '/api/latest.json{?base,symbols,prettyprint,show_alternative}')
-        .expand(getParams(
-                base: base,
-                symbols: symbols,
-                prettyPrint: prettyPrint,
-                showAlternative: showAlternative)
-            .toJson());
+  Future<Rates?> getLatest({String? base, String? symbols, bool prettyPrint = true, bool showAlternative = false}) async {
+    Rates? latest;
+    var uri = UriTemplate('$endpoint/api/latest.json{?base,symbols,prettyprint,show_alternative}')
+        .expand(getParams(base: base, symbols: symbols, prettyPrint: prettyPrint, showAlternative: showAlternative).toJson());
     var response = await _get(uri);
     if (response.statusCode == HttpStatus.ok) {
       latest = Rates.fromJson(jsonDecode(response.body));
@@ -53,21 +36,10 @@ class Oxr {
     return latest;
   }
 
-  Future<Rates> getHistorical(DateTime date,
-      {String base,
-      String symbols,
-      bool prettyPrint,
-      bool showAlternative}) async {
-    Rates historical;
-    var uri = UriTemplate(endpoint +
-            '/api/historical/${dateFormatter.format(date)}' +
-            '.json{?base,symbols,prettyprint,show_alternative}')
-        .expand(getParams(
-                base: base,
-                symbols: symbols,
-                prettyPrint: prettyPrint,
-                showAlternative: showAlternative)
-            .toJson());
+  Future<Rates?> getHistorical(DateTime date, {String? base, String? symbols, bool prettyPrint = true, bool showAlternative = false}) async {
+    Rates? historical;
+    var uri = UriTemplate('$endpoint/api/historical/${dateFormatter.format(date)}.json{?base,symbols,prettyprint,show_alternative}')
+        .expand(getParams(base: base, symbols: symbols, prettyPrint: prettyPrint, showAlternative: showAlternative).toJson());
     var response = await _get(uri);
     if (response.statusCode == HttpStatus.ok) {
       historical = Rates.fromJson(jsonDecode(response.body));
@@ -76,7 +48,7 @@ class Oxr {
   }
 
   Future<http.Response> _get(String url) async {
-    http.Response response = await http.get(url, headers: headers);
+    http.Response response = await http.get(Uri.parse(url), headers: headers);
     return response;
   }
 }
